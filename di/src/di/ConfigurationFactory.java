@@ -13,4 +13,8 @@ public class ConfigurationFactory {
     public Configuration create() {
         return product;
     }
+
+    public static final ConfigurationFactory getInstance() {
+        return INSTANCE;
+    }
 }
