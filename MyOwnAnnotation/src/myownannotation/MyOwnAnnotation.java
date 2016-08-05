@@ -16,8 +16,12 @@ public class MyOwnAnnotation {
                 Object facade = clazz.newInstance();
 
                 Class<?> serviceType = field.getType();
-                Object service = serviceType.newInstance();
+                String simpleName = serviceType.getSimpleName();
+                String className = simpleName + "Impl";
+                String packageName = serviceType.getPackage().getName();
+                String fullName = packageName + "." + className;
 
+                Object service = Class.forName(fullName).newInstance();
                 field.setAccessible(true);
                 field.set(facade, service);
 

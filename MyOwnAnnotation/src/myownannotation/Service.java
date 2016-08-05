@@ -1,4 +1,5 @@
 package myownannotation;
 
-public class Service {
+public interface Service {
+    public void serve();
 }
