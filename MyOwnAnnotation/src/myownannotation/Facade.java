@@ -6,4 +6,12 @@ public class Facade {
     Service service;
 
     String somethingElse;
+
+    @Override
+    public String toString() {
+        return "Facade{" +
+                "service=" + service +
+                ", somethingElse='" + somethingElse + '\'' +
+                '}';
+    }
 }
