@@ -6,8 +6,12 @@ public class ConfigurationFactory {
 
     private Configuration product;
 
-    private ConfigurationFactory() {
-        this.product = new SystemPropertyConfiguration();
+    private ConfigurationFactory(){
+        try {
+            this.product = (Configuration) Class.forName("di.SystemPropertyConfiguration").newInstance();
+        } catch (IllegalStateException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            throw new IllegalStateException("Product not find", e);
+        }
     }
 
     public Configuration create() {
