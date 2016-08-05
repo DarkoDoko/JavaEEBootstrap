@@ -5,18 +5,18 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class ConfigurationFactoryTest {
+public class ObjectFactoryTest {
 
-    private ConfigurationFactory cut;
+    private ObjectFactory cut;
 
     @Before
     public void initialize(){
-        this.cut = ConfigurationFactory.getInstance();
+        this.cut = ObjectFactory.getInstance();
     }
 
     @Test
     public void productCreation() {
-        Configuration product = this.cut.create();
+        Configuration product = (Configuration) this.cut.create();
         assertNotNull(product);
     }
 
