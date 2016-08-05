@@ -7,6 +7,10 @@ public class Facade {
 
     String somethingElse;
 
+    public void invokeService(){
+        service.serve();
+    }
+
     @Override
     public String toString() {
         return "Facade{" +

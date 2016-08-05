@@ -23,8 +23,10 @@ public class MyOwnAnnotation {
 
                 Object service = Class.forName(fullName).newInstance();
                 field.setAccessible(true);
-                field.set(facade, service);
+                field.set(facade, Decorator.decorate(service));
 
+                Facade typedFacade = (Facade) facade;
+                typedFacade.invokeService();
                 System.out.println("--------");
                 System.out.println("Facade: " + facade);
 
