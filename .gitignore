@@ -14,3 +14,4 @@ hs_err_pid*
 # Intellij folder
 .idea/
 
+/DiWithServer/nbproject/private/
