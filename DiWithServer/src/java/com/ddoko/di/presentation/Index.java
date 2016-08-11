@@ -11,13 +11,29 @@ public class Index {
     @Inject
     HelloService hs;
     
+    @Inject
+    UserCounter uc;
+    
+    @Inject
+    GlobalCounter gc;
+    
     @PostConstruct
     public void onInit() {
         System.out.println("Creating index");
     }
     
     public String getMessage(){
+        uc.increase();
+        gc.increase();
         return hs.sayHello();
+    }
+    
+    public int getUserCounter(){
+        return uc.getCounter();
+    }
+    
+    public int getGlobalCounter(){
+        return gc.getCounter();
     }
     
     @PreDestroy
