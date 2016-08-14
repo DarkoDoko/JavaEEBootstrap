@@ -4,11 +4,16 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
+import javax.ejb.DependsOn;
 import javax.ejb.SessionContext;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
-@Stateless
+@DependsOn("FireStarter")
+@Startup
+@Singleton
 @Interceptors(MethodCallLogger.class)
 public class HelloService {
     
@@ -17,7 +22,7 @@ public class HelloService {
     
     @PostConstruct
     public void onInit() {
-        System.out.println("Creating HelloService(EJB)");
+        System.out.println("Starting... Creating HelloService(EJB)");
     }
     
     
