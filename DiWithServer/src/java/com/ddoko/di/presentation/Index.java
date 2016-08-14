@@ -20,6 +20,9 @@ public class Index {
     @Inject
     EmptyDelegate ed;
     
+    @Inject
+    NakedObject no;
+    
     @PostConstruct
     public void onInit() {
         System.out.println("Creating index");
@@ -28,6 +31,7 @@ public class Index {
     public String getMessage(){
         uc.increase();
         gc.increase();
+        no.hello();
         return hs.sayHello();
     }
     
