@@ -11,17 +11,28 @@ public class Index {
     @Inject
     HelloService hs;
     
-    @Inject
-    UserCounter uc;
+    private UserCounter uc;
     
-    @Inject
-    GlobalCounter gc;
+    private GlobalCounter gc;
     
     @Inject
     EmptyDelegate ed;
     
     @Inject
-    NakedObject no;
+    private NakedObject no;
+
+    @Inject
+    public Index(GlobalCounter gc) {
+        this.gc = gc;
+    }
+
+    public Index() {
+    }
+
+    @Inject
+    public void setUc(UserCounter uc) {
+        this.uc = uc;
+    }
     
     @PostConstruct
     public void onInit() {
