@@ -1,33 +1,41 @@
 package com.ddoko.di.presentation;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.enterprise.concurrent.ManagedExecutorService;
+import java.util.Date;
+import java.util.concurrent.CopyOnWriteArrayList;
+import javax.annotation.PostConstruct;
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Schedule;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 
 /**
  *
  * @author ddoko
  */
+@Startup
+@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
+@Singleton
 public class BigBrother {
+
+    private CopyOnWriteArrayList<String> messageQueue;
     
-    @Resource
-    ManagedExecutorService mes;
-
+    @PostConstruct
+    public void initialize() {
+        this.messageQueue = new CopyOnWriteArrayList<>();
+    }
+    
     public void gatherEverything(String message) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Save it for later: " + message);
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(BigBrother.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
-
-        mes.execute(runnable);
+        this.messageQueue.add(message);
+    }
+    
+    @Schedule(second = "*/2", minute = "*", hour = "*")
+    public void batchAnalyze() {
+        System.out.println("Analyzing at: " + new Date());
+        
+        for(String message : messageQueue){
+            System.out.println("-- " + message);
+            this.messageQueue.remove(message);
+        }
     }
 }
