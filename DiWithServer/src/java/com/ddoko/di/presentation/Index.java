@@ -20,6 +20,9 @@ public class Index {
     
     @Inject
     private NakedObject no;
+    
+    @Inject
+    BigBrother bb;
 
     @Inject
     public Index(GlobalCounter gc) {
@@ -43,7 +46,10 @@ public class Index {
         uc.increase();
         gc.increase();
         no.hello();
-        return hs.sayHello();
+        String message = hs.sayHello();
+        bb.gatherEverything(message);
+        
+        return message;
     }
     
     public int getUserCounter(){
