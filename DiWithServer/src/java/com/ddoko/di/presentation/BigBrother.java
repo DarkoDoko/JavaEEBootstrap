@@ -1,7 +1,13 @@
 package com.ddoko.di.presentation;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.ConcurrencyManagement;
@@ -13,6 +19,7 @@ import javax.ejb.Startup;
 import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerService;
+import javax.inject.Inject;
 
 /**
  *
@@ -30,6 +37,9 @@ public class BigBrother {
     
     private Timer timer;
     
+    @Inject
+    MessageAnalyzer ma;
+    
     @PostConstruct
     public void initialize() {
         this.messageQueue = new CopyOnWriteArrayList<>();
@@ -45,10 +55,19 @@ public class BigBrother {
     @Timeout
     public void batchAnalyze() {
         System.out.println("Analyzing at: " + new Date());
+        List<Future<Boolean>> results = new ArrayList<>();
         
         for(String message : messageQueue){
-            System.out.println("-- " + message);
+            results.add(ma.analyze(message));
             this.messageQueue.remove(message);
+        }
+        
+        for (Future<Boolean> result : results) {
+            try {
+                System.out.println("### Result is: " + result.get());
+            } catch (InterruptedException | ExecutionException ex) {
+                Logger.getLogger(BigBrother.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }
