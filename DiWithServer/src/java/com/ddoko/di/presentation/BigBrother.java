@@ -40,6 +40,9 @@ public class BigBrother {
     @Inject
     MessageAnalyzer ma;
     
+    @Inject
+    MessageArchiver archiver;
+    
     @PostConstruct
     public void initialize() {
         this.messageQueue = new CopyOnWriteArrayList<>();
@@ -49,6 +52,7 @@ public class BigBrother {
     }
     
     public void gatherEverything(String message) {
+        this.archiver.save(message);
         this.messageQueue.add(message);
     }
     
