@@ -19,6 +19,7 @@ import javax.ejb.Startup;
 import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerService;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 /**
@@ -43,6 +44,9 @@ public class BigBrother {
     @Inject
     MessageArchiver archiver;
     
+    @Inject
+    Event<String> events;
+    
     @PostConstruct
     public void initialize() {
         this.messageQueue = new CopyOnWriteArrayList<>();
@@ -54,6 +58,7 @@ public class BigBrother {
     public void gatherEverything(String message) {
         this.archiver.save(message);
         this.messageQueue.add(message);
+        this.events.fire(message);
     }
     
     @Timeout
