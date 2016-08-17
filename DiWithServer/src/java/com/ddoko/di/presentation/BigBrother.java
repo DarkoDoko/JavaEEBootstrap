@@ -64,7 +64,7 @@ public class BigBrother {
         this.messageQueue.add(message);
         this.events.fire(message);
         
-        this.sc.setRollbackOnly();
+        //this.sc.setRollbackOnly();
     }
     
     @Timeout
