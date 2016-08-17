@@ -14,6 +14,7 @@ import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.Schedule;
 import javax.ejb.ScheduleExpression;
+import javax.ejb.SessionContext;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timeout;
@@ -47,6 +48,9 @@ public class BigBrother {
     @Inject
     Event<String> events;
     
+    @Resource
+    SessionContext sc;
+    
     @PostConstruct
     public void initialize() {
         this.messageQueue = new CopyOnWriteArrayList<>();
@@ -59,6 +63,8 @@ public class BigBrother {
         this.archiver.save(message);
         this.messageQueue.add(message);
         this.events.fire(message);
+        
+        this.sc.setRollbackOnly();
     }
     
     @Timeout
