@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
+import javax.validation.constraints.Size;
 
 @Model
 public class Index {
@@ -24,6 +25,7 @@ public class Index {
     @Inject
     BigBrother bb;
     
+    @Size(min = 2, max = 10)
     private String text;
 
     public String getText() {
