@@ -11,8 +11,8 @@ import javax.ws.rs.Path;
 public class MessageResource {
     
     @GET
-    public String message() {
-       return "hello, world"; 
+    public Message message() {
+       return new Message("hello from message"); 
     }
     
 }
