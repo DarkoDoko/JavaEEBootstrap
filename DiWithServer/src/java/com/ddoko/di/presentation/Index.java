@@ -36,7 +36,7 @@ public class Index {
     
     public Object save(){
         bb.gatherEverything(text);
-        return null;
+        return "theend";
     }
 
     @Inject
