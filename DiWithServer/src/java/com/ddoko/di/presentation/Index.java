@@ -23,6 +23,21 @@ public class Index {
     
     @Inject
     BigBrother bb;
+    
+    private String text;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+    
+    public Object save(){
+        bb.gatherEverything(text);
+        return null;
+    }
 
     @Inject
     public Index(GlobalCounter gc) {
