@@ -1,5 +1,7 @@
 package com.ddoko.di.presentation;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
@@ -22,6 +24,15 @@ public class MessagesResource {
     @Path("{id}")
     public Message message(@PathParam("id") long id) {
        return new Message("hello from message" + id);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public List<Message> messages(){
+        List<Message> messages = new ArrayList<>();
+        messages.add(new Message("duke"));
+        messages.add(new Message("juggy"));
+        return messages;
     }
     
     @GET
