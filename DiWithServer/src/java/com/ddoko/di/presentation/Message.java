@@ -3,6 +3,7 @@ package com.ddoko.di.presentation;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,6 +23,7 @@ public class Message {
     @XmlTransient
     private long id;
     
+    @Size(min = 3, max = 6)
     private String content;
 
     public Message() {

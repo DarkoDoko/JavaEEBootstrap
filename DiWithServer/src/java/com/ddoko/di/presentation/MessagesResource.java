@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -43,7 +44,7 @@ public class MessagesResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void save(Message message){
+    public void save(@Valid Message message){
         System.out.println("Message: " + message);
     }
     
